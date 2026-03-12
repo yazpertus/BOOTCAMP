@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAV — Bootcamp Liderazgo Mental para Entrenadores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:   #003d5b;
+  --navy80: rgba(0,61,91,0.8);
+  --cream:  #fff9e7;
+  --sage:   #bcd4cd;
+  --orange: #f4a258;
+  --navy-dark: #002a40;
+  --sage-dark: #8fb5ac;
+  --text-on-navy: #fff9e7;
+  --text-on-cream: #003d5b;
+  --muted-on-navy: rgba(255,249,231,0.55);
+  --muted-on-cream: rgba(0,61,91,0.5);
+  --border-navy: rgba(188,212,205,0.18);
+  --border-cream: rgba(0,61,91,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--text-on-cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── UTILS ── */
+.navy-section  { background: var(--navy);  color: var(--text-on-navy); }
+.cream-section { background: var(--cream); color: var(--text-on-cream); }
+.sage-section  { background: var(--sage);  color: var(--text-on-cream); }
+.container { max-width: 1140px; margin: 0 auto; padding: 0 36px; }
+.container--narrow { max-width: 820px; margin: 0 auto; padding: 0 36px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--navy);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 68px;
+  border-bottom: 1px solid var(--border-navy);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px; font-weight: 900;
+  color: var(--orange);
+  letter-spacing: 0.04em;
+}
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  color: var(--muted-on-navy);
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-on-navy); }
+.nav-cta {
+  background: var(--orange); color: var(--navy);
+  font-weight: 600; font-size: 14px;
+  padding: 10px 24px; text-decoration: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+.nav-cta:hover { opacity: 0.88; }
+.nav-hamburger { display: none; }
+
+/* ── HERO ── */
+#hero {
+  background: var(--navy);
+  padding: 160px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-texture {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(188,212,205,0.12) 1px, transparent 0);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.4) 60%, transparent 100%);
+}
+.hero-blob {
+  position: absolute; right: -120px; top: -80px;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(188,212,205,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(188,212,205,0.12); border: 1px solid rgba(188,212,205,0.25);
+  padding: 8px 18px; margin-bottom: 28px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--sage);
+}
+.hero-badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--orange); animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.75)} }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 6.5vw, 88px);
+  font-weight: 900; line-height: 1.02;
+  color: var(--cream); margin-bottom: 28px;
+}
+.hero-title em {
+  font-style: italic; color: var(--orange);
+}
+.hero-sub {
+  font-size: 18px; font-weight: 300; line-height: 1.75;
+  color: var(--muted-on-navy); max-width: 520px; margin-bottom: 44px;
+}
+.btn {
+  display: inline-block; text-decoration: none;
+  font-weight: 600; font-size: 16px; letter-spacing: 0.02em;
+  padding: 16px 36px; transition: all 0.2s; cursor: pointer; border: none;
+}
+.btn-orange { background: var(--orange); color: var(--navy); }
+.btn-orange:hover { background: #f5b472; }
+.btn-outline-cream {
+  background: transparent; color: var(--cream);
+  border: 1.5px solid rgba(255,249,231,0.35);
+}
+.btn-outline-cream:hover { border-color: var(--cream); }
+.btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* Hero card */
+.hero-card {
+  background: rgba(255,249,231,0.05);
+  border: 1px solid rgba(188,212,205,0.2);
+  padding: 44px 36px;
+  position: relative;
+}
+.hero-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: var(--orange);
+}
+.hero-card-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 32px;
+}
+.hero-card-dates { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+.hero-card-date {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 20px; background: rgba(188,212,205,0.07);
+  border-left: 3px solid var(--sage);
+}
+.hero-card-mod {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sage); display: block; margin-bottom: 2px;
+}
+.hero-card-date-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700; color: var(--cream);
+}
+.hero-card-sep { border: none; border-top: 1px solid var(--border-navy); margin: 28px 0; }
+.hero-card-spots {
+  text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--orange); margin-top: 12px;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: var(--orange);
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+.stat {
+  padding: 44px 36px; text-align: center;
+  border-right: 1px solid rgba(0,61,91,0.15);
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px; font-weight: 900; line-height: 1;
+  color: var(--navy); display: block;
+}
+.stat-label {
+  font-size: 14px; font-weight: 500;
+  color: rgba(0,61,91,0.7); margin-top: 6px;
+}
+
+/* ── SECTION HEADERS ── */
+.section-header { margin-bottom: 64px; }
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-eyebrow::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--orange); }
+.section-eyebrow.on-navy { color: var(--sage); }
+.section-eyebrow.on-navy::after { background: var(--sage); }
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5vw, 64px); font-weight: 900; line-height: 1.05;
+}
+.section-title em { font-style: italic; color: var(--orange); }
+.section-title.on-navy { color: var(--cream); }
+.section-title.on-navy em { color: var(--sage); }
+
+/* ── PAIN POINTS ── */
+#problema { padding: 100px 0; background: var(--cream); }
+.pain-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  margin-top: 56px;
+}
+.pain-card {
+  background: white; border: 1px solid var(--border-cream);
+  padding: 48px 40px; position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.pain-card:hover { border-color: var(--sage-dark); transform: translateY(-3px); }
+.pain-card::before {
+  content: attr(data-n);
+  position: absolute; right: 20px; top: 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: 96px; font-weight: 900; line-height: 1;
+  color: rgba(0,61,91,0.04); pointer-events: none;
+}
+.pain-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700; line-height: 1.3;
+  color: var(--navy); margin-bottom: 12px;
+  font-style: italic;
+}
+.pain-card p { font-size: 15px; color: var(--muted-on-cream); line-height: 1.7; }
+.pain-cta { text-align: center; margin-top: 56px; }
+
+/* ── BENEFITS ── */
+#beneficios { padding: 100px 0; background: var(--navy); }
+.benefits-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px;
+}
+.benefit-card {
+  position: relative; overflow: hidden;
+  background: rgba(255,249,231,0.04); border: 1px solid var(--border-navy);
+  padding: 52px 36px;
+  transition: border-color 0.3s;
+}
+.benefit-card:hover { border-color: rgba(188,212,205,0.4); }
+.benefit-icon {
+  width: 52px; height: 52px; margin-bottom: 28px;
+  background: rgba(244,162,88,0.12); border: 1px solid rgba(244,162,88,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.benefit-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 700; color: var(--cream);
+  margin-bottom: 16px;
+}
+.benefit-list { list-style: none; }
+.benefit-list li {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 15px; color: var(--muted-on-navy);
+  padding: 7px 0; border-bottom: 1px solid var(--border-navy);
+}
+.benefit-list li:last-child { border-bottom: none; }
+.benefit-list li::before { content: '→'; color: var(--sage); flex-shrink: 0; margin-top: 1px; }
+
+/* ── MODULES ── */
+#programa { padding: 100px 0; background: var(--cream); }
+.modules-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px;
+}
+.module-card {
+  border: 1px solid var(--border-cream);
+  overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+}
+.module-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,61,91,0.12); }
+.module-img {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; display: block;
+  background: var(--navy);
+  position: relative; overflow: hidden;
+}
+.module-img-placeholder {
+  width: 100%; aspect-ratio: 4/3;
+  background: var(--navy);
+  display: flex; align-items: flex-end;
+  position: relative; overflow: hidden;
+}
+.module-img-bg {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(188,212,205,0.15) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+.module-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,42,64,0.9) 100%);
+}
+.module-img-num {
+  position: absolute; right: 20px; top: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 80px; font-weight: 900; line-height: 1;
+  color: rgba(188,212,205,0.1);
+}
+.module-body { padding: 32px 28px; background: white; }
+.module-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 8px;
+}
+.module-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.1em;
+  color: var(--muted-on-cream); margin-bottom: 12px;
+}
+.module-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700; color: var(--navy);
+  line-height: 1.25; margin-bottom: 12px;
+}
+.module-text { font-size: 14px; color: var(--muted-on-cream); line-height: 1.65; }
+
+/* ── DATES ── */
+#fechas { padding: 100px 0; background: var(--sage); }
+.dates-inner { display: grid; grid-template-columns: 5fr 4fr; gap: 80px; align-items: start; }
+.dates-list { margin-top: 48px; display: flex; flex-direction: column; gap: 2px; }
+.date-row {
+  display: grid; grid-template-columns: 100px 1fr;
+  background: rgba(0,61,91,0.07);
+  border: 1px solid rgba(0,61,91,0.1);
+  overflow: hidden; transition: background 0.2s;
+}
+.date-row:hover { background: rgba(0,61,91,0.12); }
+.date-num {
+  background: var(--navy); padding: 24px 20px;
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+}
+.date-day {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; font-weight: 900; color: var(--cream); line-height: 1;
+}
+.date-month {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--sage); margin-top: 4px;
+}
+.date-info { padding: 24px 28px; }
+.date-mod {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 4px;
+}
+.date-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; font-weight: 700; color: var(--navy);
+}
+.date-desc { font-size: 14px; color: rgba(0,61,91,0.65); margin-top: 4px; }
+.dates-aside {}
+.dates-callout {
+  background: var(--navy); padding: 44px 36px; margin-top: 48px;
+  position: relative;
+}
+.dates-callout::before {
+  content: ''; position: absolute; top: 0; left: 0; bottom: 0;
+  width: 4px; background: var(--orange);
+}
+.dates-callout-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700; color: var(--cream); margin-bottom: 16px;
+}
+.dates-callout-text { font-size: 15px; color: var(--muted-on-navy); line-height: 1.7; margin-bottom: 28px; }
+.dates-callout-live {
+  display: flex; gap: 12px; align-items: center;
+  font-size: 14px; color: var(--muted-on-navy);
+}
+.dates-callout-live strong { color: var(--cream); }
+
+/* ── PRICING ── */
+#planes { padding: 100px 0; background: var(--navy); }
+.pricing-subtitle {
+  font-size: 18px; color: var(--muted-on-navy); margin-top: 12px; max-width: 520px;
+}
+.plans-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px;
+}
+.plan-card {
+  background: rgba(255,249,231,0.04);
+  border: 1px solid var(--border-navy);
+  padding: 48px 36px; position: relative;
+  display: flex; flex-direction: column;
+  transition: border-color 0.3s;
+}
+.plan-card:hover { border-color: rgba(188,212,205,0.35); }
+.plan-card.featured {
+  background: var(--cream); border-color: transparent;
+  color: var(--text-on-cream);
+}
+.plan-card.featured::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px; background: var(--orange);
+}
+.plan-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted-on-navy); margin-bottom: 20px;
+}
+.plan-card.featured .plan-tag { color: var(--muted-on-cream); }
+.plan-badge {
+  display: inline-block;
+  background: var(--orange); color: var(--navy);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 4px 12px; margin-bottom: 12px; font-weight: 500;
+}
+.plan-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; font-weight: 900;
+  color: var(--cream); margin-bottom: 8px;
+}
+.plan-card.featured .plan-name { color: var(--navy); }
+.plan-desc { font-size: 14px; color: var(--muted-on-navy); margin-bottom: 36px; line-height: 1.65; }
+.plan-card.featured .plan-desc { color: var(--muted-on-cream); }
+.plan-price-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 6px;
+}
+.plan-card.featured .plan-price-label { color: var(--sage-dark); }
+.plan-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px; font-weight: 900; line-height: 1;
+  color: var(--cream); margin-bottom: 6px;
+}
+.plan-card.featured .plan-price { color: var(--navy); }
+.plan-cuotas { font-size: 14px; color: var(--muted-on-navy); margin-bottom: 8px; }
+.plan-card.featured .plan-cuotas { color: var(--muted-on-cream); }
+.plan-credit {
+  display: inline-block; font-size: 13px; color: #1a7a4c;
+  background: rgba(26,122,76,0.08); border: 1px solid rgba(26,122,76,0.2);
+  padding: 5px 12px; margin-bottom: 36px;
+}
+.plan-features { list-style: none; margin-bottom: 40px; flex: 1; }
+.plan-features li {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 9px 0; border-bottom: 1px solid var(--border-navy);
+  font-size: 14px; color: var(--muted-on-navy);
+}
+.plan-card.featured .plan-features li {
+  border-bottom-color: var(--border-cream);
+  color: rgba(0,61,91,0.75);
+}
+.plan-features li:last-child { border-bottom: none; }
+.plan-features li::before { content: '✓'; color: var(--sage); flex-shrink: 0; font-weight: 600; }
+.plan-card.featured .plan-features li::before { color: var(--navy); }
+.btn-plan {
+  display: block; text-align: center; text-decoration: none;
+  font-weight: 600; font-size: 15px; letter-spacing: 0.04em; padding: 16px;
+  transition: all 0.2s; cursor: pointer; border: none;
+}
+.btn-plan-outline {
+  background: transparent; color: var(--cream);
+  border: 1.5px solid rgba(255,249,231,0.25);
+}
+.btn-plan-outline:hover { border-color: var(--cream); background: rgba(255,249,231,0.06); }
+.btn-plan-fill { background: var(--orange); color: var(--navy); }
+.btn-plan-fill:hover { background: #f5b472; }
+
+.credit-box {
+  max-width: 900px; margin: 48px auto 0;
+  background: rgba(188,212,205,0.08);
+  border: 1px solid rgba(188,212,205,0.2);
+  padding: 28px 36px;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.credit-box-icon { font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+.credit-box-text { font-size: 15px; color: var(--muted-on-navy); line-height: 1.7; }
+.credit-box-text strong { color: var(--cream); }
+
+/* ── FAQ ── */
+#preguntas { padding: 100px 0; background: var(--cream); }
+.faq-list { margin-top: 56px; display: flex; flex-direction: column; gap: 2px; }
+.faq-item { border: 1px solid var(--border-cream); overflow: hidden; }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 32px; cursor: pointer;
+  user-select: none; transition: background 0.2s;
+}
+.faq-q:hover { background: rgba(0,61,91,0.03); }
+.faq-q-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px; font-weight: 700; color: var(--navy);
+  line-height: 1.3;
+}
+.faq-toggle {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--navy); color: var(--cream);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0; transition: transform 0.3s;
+}
+.faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--orange); color: var(--navy); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+.faq-item.open .faq-a { max-height: 250px; }
+.faq-a-inner {
+  padding: 0 32px 28px;
+  font-size: 16px; color: var(--muted-on-cream); line-height: 1.75;
+  border-top: 1px solid var(--border-cream); padding-top: 20px;
+}
+
+/* ── CTA FINAL ── */
+#cta-final { padding: 120px 0; background: var(--navy); overflow: hidden; position: relative; }
+.cta-final-deco {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 700px; height: 700px; border-radius: 50%;
+  border: 1px solid rgba(188,212,205,0.06); pointer-events: none;
+}
+.cta-final-deco::before {
+  content: ''; position: absolute; inset: 80px; border-radius: 50%;
+  border: 1px solid rgba(244,162,88,0.06);
+}
+.cta-final-inner {
+  position: relative; z-index: 2;
+  text-align: center; max-width: 720px; margin: 0 auto;
+}
+.cta-urgency {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--cream); background: rgba(244,162,88,0.12);
+  border: 1px solid rgba(244,162,88,0.25); padding: 10px 20px;
+  margin-bottom: 28px;
+}
+.cta-urgency-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); animation: pulse 1.5s infinite; }
+.cta-final-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(48px, 6vw, 80px); font-weight: 900; line-height: 1.05;
+  color: var(--cream); margin-bottom: 24px;
+}
+.cta-final-title em { font-style: italic; color: var(--orange); }
+.cta-final-sub {
+  font-size: 18px; font-weight: 300;
+  color: var(--muted-on-navy); line-height: 1.75; margin-bottom: 48px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy-dark); padding: 40px 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+  border-top: 1px solid var(--border-navy);
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px; font-weight: 900; color: var(--orange);
+}
+.footer-tagline { font-size: 14px; color: var(--muted-on-navy); }
+.footer-contact { font-size: 14px; }
+.footer-contact a { color: var(--sage); text-decoration: none; }
+.footer-contact a:hover { color: var(--cream); }
+
+/* ── REVEAL ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-card { max-width: 440px; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .plans-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid rgba(0,61,91,0.15); }
+  .stat:last-child { border-bottom: none; }
+  .dates-inner { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MAV</div>
+  <ul class="nav-links">
+    <li><a href="#problema">El problema</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#planes">Planes</a></li>
+    <li><a href="#fechas">Fechas</a></li>
+  </ul>
+  <a href="#planes" class="nav-cta">Inscribirme</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="navy-section">
+  <div class="hero-texture"></div>
+  <div class="hero-blob"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          Atención Entrenadores
+        </div>
+        <h1 class="hero-title">
+          El partido se<br>gana <em>antes</em><br>de entrar
+        </h1>
+        <p class="hero-sub">
+          3 módulos en vivo para instalar el sistema mental que mantiene a tu equipo en pie cuando el partido pesa. No es psicología. Es un protocolo.
+        </p>
+        <div class="btn-group">
+          <a href="#planes" class="btn btn-orange">Inscribirme al Bootcamp</a>
+          <a href="#programa" class="btn btn-outline-cream">Ver el programa</a>
+        </div>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-title">Calendario del Bootcamp</div>
+        <div class="hero-card-dates">
+          <div class="hero-card-date">
+            <div>
+              <span class="hero-card-mod">Módulo 01</span>
+              <span class="hero-card-date-text">20 de Abril</span>
+            </div>
+          </div>
+          <div class="hero-card-date">
+            <div>
+              <span class="hero-card-mod">Módulo 02</span>
+              <span class="hero-card-date-text">27 de Abril</span>
+            </div>
+          </div>
+          <div class="hero-card-date">
+            <div>
+              <span class="hero-card-mod">Módulo 03</span>
+              <span class="hero-card-date-text">4 de Mayo</span>
+            </div>
+          </div>
+        </div>
+        <hr class="hero-card-sep">
+        <a href="#planes" class="btn btn-orange" style="width:100%;text-align:center;display:block;">Quiero mi lugar</a>
+        <p class="hero-card-spots">⬤ QUEDAN 30 CUPOS DISPONIBLES</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-num">3</span>
+    <div class="stat-label">Módulos de 2 horas · 20 abr · 27 abr · 4 may</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">6hs</span>
+    <div class="stat-label">100% en vivo · sin grabación · intervención directa</div>
+  </div>
+  <div class="stat">
+    <span class="stat-num">30</span>
+    <div class="stat-label">Cupos por grupo · límite operativo real</div>
+  </div>
+</div>
+
+<!-- PAIN POINTS -->
+<section id="problema" class="cream-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">El problema</div>
+      <h2 class="section-title">¿Te identificás<br>con <em>esto?</em></h2>
+    </div>
+    <div class="pain-grid reveal">
+      <div class="pain-card" data-n="01">
+        <h3>"Entrenamos bien, pero cuando el partido se complica se desarma todo"</h3>
+        <p>Llega el primer gol en contra y el equipo deja de aplicar todo lo que trabajaron en la semana. El problema no es la táctica. Es la respuesta mental ante la presión.</p>
+      </div>
+      <div class="pain-card" data-n="02">
+        <h3>"Hablo y siento que no me están escuchando"</h3>
+        <p>En el vestuario parecen atentos. En la cancha hacen otra cosa. La comunicación no está fallando en el mensaje — está fallando en el estado mental de quien recibe.</p>
+      </div>
+      <div class="pain-card" data-n="03">
+        <h3>"Un error arrastra todo lo que sigue"</h3>
+        <p>Una jugada mala contamina las tres siguientes. El equipo tiene miedo de agarrar la pelota. Eso no es mala suerte: es falta de estructura emocional entrenada.</p>
+      </div>
+      <div class="pain-card" data-n="04">
+        <h3>"Las charlas de motivación duran 20 minutos"</h3>
+        <p>Motivás, arranca bien, y a los 20 minutos volvés a lo mismo. La motivación no es un protocolo: es un estado. Lo que hay que entrenar es el sistema, no el ánimo.</p>
+      </div>
+    </div>
+    <div class="pain-cta reveal">
+      <a href="#planes" class="btn btn-orange">Quiero resolver esto</a>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section id="beneficios" class="navy-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow on-navy">Qué te vas a llevar</div>
+      <h2 class="section-title on-navy">Lo que el<br>Bootcamp <em>entrega</em></h2>
+    </div>
+    <div class="benefits-grid reveal">
+      <div class="benefit-card">
+        <div class="benefit-icon">🧭</div>
+        <div class="benefit-title">Liderazgo Mental</div>
+        <ul class="benefit-list">
+          <li>Un método claro para ordenar la toma de decisiones</li>
+          <li>Cómo leer la respuesta mental del equipo en tiempo real</li>
+          <li>Comunicación estratégica en momentos críticos</li>
+          <li>Definir tu estilo de liderazgo sin depender del resultado</li>
+        </ul>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-title">Análisis en Vivo</div>
+        <ul class="benefit-list">
+          <li>Análisis de situaciones reales de tu equipo con MAV</li>
+          <li>Espacio para preguntas concretas, no teóricas</li>
+          <li>Lluvia de ideas y plan de acción inmediato</li>
+          <li>Intervención directa, sin diferido</li>
+        </ul>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📋</div>
+        <div class="benefit-title">Herramientas Prácticas</div>
+        <ul class="benefit-list">
+          <li>Ficha de evaluación mental semanal</li>
+          <li>Diagnóstico post-entrenamiento</li>
+          <li>Diagnóstico post-partido (protocolo de 10 minutos)</li>
+          <li>Guías prácticas aplicables desde el lunes siguiente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="programa" class="cream-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Programa del Bootcamp</div>
+      <h2 class="section-title">Explorá el<br><em>trayecto completo</em></h2>
+    </div>
+    <div class="modules-grid reveal">
+      <div class="module-card">
+        <div class="module-img-placeholder">
+          <div class="module-img-bg"></div>
+          <div class="module-img-overlay"></div>
+          <span class="module-img-num">01</span>
+        </div>
+        <div class="module-body">
+          <div class="module-tag">Módulo 01</div>
+          <div class="module-date">20 de Abril · Online en vivo</div>
+          <div class="module-title">Construir la Confianza del Equipo</div>
+          <p class="module-text">Protocolo para que la confianza no dependa del resultado del último partido. Herramientas concretas para instalarla como hábito de entrenamiento, no como estado de ánimo.</p>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-img-placeholder">
+          <div class="module-img-bg"></div>
+          <div class="module-img-overlay"></div>
+          <span class="module-img-num">02</span>
+        </div>
+        <div class="module-body">
+          <div class="module-tag">Módulo 02</div>
+          <div class="module-date">27 de Abril · Online en vivo</div>
+          <div class="module-title">Gestionar la Frustración y el Error</div>
+          <p class="module-text">Cómo entrenar la respuesta post-error para que un gol en contra no se convierta en tres. Ficha de evaluación mental para usar en el vestuario.</p>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-img-placeholder">
+          <div class="module-img-bg"></div>
+          <div class="module-img-overlay"></div>
+          <span class="module-img-num">03</span>
+        </div>
+        <div class="module-body">
+          <div class="module-tag">Módulo 03</div>
+          <div class="module-date">4 de Mayo · Online en vivo</div>
+          <div class="module-title">Unión y Liderazgo Bajo Presión</div>
+          <p class="module-text">Roles de liderazgo internos que sostienen al equipo cuando el entrenador no puede estar en todo. Cómo construir cultura sin depender del resultado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATES -->
+<section id="fechas" class="sage-section">
+  <div class="container">
+    <div class="dates-inner">
+      <div>
+        <div class="section-header reveal">
+          <div class="section-eyebrow">Cuándo arranca</div>
+          <h2 class="section-title">Las <em>fechas</em><br>del Bootcamp</h2>
+        </div>
+        <div class="dates-list reveal">
+          <div class="date-row">
+            <div class="date-num">
+              <span class="date-day">20</span>
+              <span class="date-month">ABR</span>
+            </div>
+            <div class="date-info">
+              <div class="date-mod">Módulo 01</div>
+              <div class="date-title">Construir la Confianza del Equipo</div>
+              <div class="date-desc">2 horas · Online en vivo · sin grabación</div>
+            </div>
+          </div>
+          <div class="date-row">
+            <div class="date-num">
+              <span class="date-day">27</span>
+              <span class="date-month">ABR</span>
+            </div>
+            <div class="date-info">
+              <div class="date-mod">Módulo 02</div>
+              <div class="date-title">Gestionar la Frustración y el Error</div>
+              <div class="date-desc">2 horas · Online en vivo · sin grabación</div>
+            </div>
+          </div>
+          <div class="date-row">
+            <div class="date-num">
+              <span class="date-day">4</span>
+              <span class="date-month">MAY</span>
+            </div>
+            <div class="date-info">
+              <div class="date-mod">Módulo 03</div>
+              <div class="date-title">Unión y Liderazgo Bajo Presión</div>
+              <div class="date-desc">2 horas · Online en vivo · sin grabación</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="dates-callout reveal">
+          <div class="dates-callout-title">100% en vivo.<br>Sin grabación.</div>
+          <p class="dates-callout-text">Cada clase tiene intervención directa de MAV sobre las situaciones reales de cada participante. Eso no funciona igual en diferido. Si sabés que no podés estar en algún módulo, es mejor esperar el próximo ciclo y arrancar completo.</p>
+          <div class="dates-callout-live">
+            <div class="hero-badge-dot"></div>
+            <span><strong>Domingo</strong> de cada semana · Horario a confirmar con los inscriptos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="planes" class="navy-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow on-navy">Inversión</div>
+      <h2 class="section-title on-navy">Elegí <em>tu plan</em></h2>
+      <p class="pricing-subtitle">Elegí el que mejor se adapta a tu situación. Los tres incluyen los 3 módulos del Bootcamp.</p>
+    </div>
+    <div class="plans-grid reveal">
+      <!-- Esencial -->
+      <div class="plan-card">
+        <div class="plan-tag">Empezá a mejorar tu liderazgo</div>
+        <div class="plan-name">Esencial</div>
+        <p class="plan-desc">Acceso completo a los 3 módulos en vivo con todas las herramientas del programa.</p>
+        <div class="plan-price-label">Transferencia</div>
+        <div class="plan-price">$135.000</div>
+        <div class="plan-cuotas">o 6 cuotas de $25.000</div>
+        <div class="plan-credit">↳ Con crédito MC: $120.000</div>
+        <ul class="plan-features">
+          <li>3 módulos en vivo (6 horas)</li>
+          <li>Ficha de evaluación mental</li>
+          <li>Diagnóstico post-partido y post-entrenamiento</li>
+          <li>Guías prácticas por módulo</li>
+          <li>Acceso directo a MAV en cada clase</li>
+          <li>Grupo privado de seguimiento</li>
+        </ul>
+        <a href="https://mpago.li/2bwgLuf" target="_blank" class="btn-plan btn-plan-outline">Seleccionar este plan</a>
+      </div>
+      <!-- Integral (featured) -->
+      <div class="plan-card featured">
+        <div class="plan-badge">La versión más elegida</div>
+        <div class="plan-name">Integral</div>
+        <p class="plan-desc">Todo el Esencial más acompañamiento personalizado de MAV durante el proceso.</p>
+        <div class="plan-price-label" style="color:var(--muted-on-cream)">Transferencia</div>
+        <div class="plan-price">$300.000</div>
+        <div class="plan-cuotas">o 6 cuotas de $58.333</div>
+        <div class="plan-credit">↳ Con crédito MC: $285.000</div>
+        <ul class="plan-features">
+          <li>Todo lo incluido en el Plan Esencial</li>
+          <li>Encuentros 1:1 con MAV (×3)</li>
+          <li>Análisis de situaciones de tu equipo</li>
+          <li>Feedback directo sobre tu aplicación</li>
+          <li>Plan de acción personalizado</li>
+          <li>Prioridad de respuesta en el grupo</li>
+        </ul>
+        <a href="https://mpago.li/2LLfSLE" target="_blank" class="btn-plan btn-plan-fill">Seleccionar este plan</a>
+      </div>
+      <!-- Premium -->
+      <div class="plan-card">
+        <div class="plan-tag">Acompañamiento total</div>
+        <div class="plan-name">Premium</div>
+        <p class="plan-desc">Para quien quiere un proceso sostenido con MAV durante toda la temporada.</p>
+        <div class="plan-price-label">Transferencia</div>
+        <div class="plan-price">$515.000</div>
+        <div class="plan-cuotas">o 6 cuotas de $95.875</div>
+        <div class="plan-credit" style="visibility:hidden;">—</div>
+        <ul class="plan-features">
+          <li>Todo lo incluido en el Plan Integral</li>
+          <li>Sesiones quincenales 1:1 durante todo el proceso</li>
+          <li>Seguimiento personalizado semana a semana</li>
+          <li>Análisis de situaciones de tu equipo en profundidad</li>
+          <li>Acceso directo a MAV por WhatsApp</li>
+          <li>Revisión de tus herramientas aplicadas</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-outline">Seleccionar este plan</a>
+      </div>
+    </div>
+    <div class="credit-box reveal">
+      <div class="credit-box-icon">✦</div>
+      <div class="credit-box-text">
+        <strong>Cómo funciona el crédito de la Masterclass:</strong> los $15.000 que pagás para acceder a la Masterclass del 13 de abril no se pierden. Se acreditan al plan que elijas, siempre que te inscribas dentro de las 48 horas posteriores al cierre de la clase. No es un descuento: es tu inversión en la MC que se transfiere al programa.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="preguntas" class="cream-section">
+  <div class="container--narrow">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Preguntas frecuentes</div>
+      <h2 class="section-title">¿Te quedó<br><em>alguna duda?</em></h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">¿Necesito experiencia previa como entrenador?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">No. El método se adapta a cualquier nivel: desde divisiones inferiores hasta clubes semiprofesionales. Lo que entrenamos es la respuesta mental del equipo, y eso es independiente del presupuesto, la categoría o los años de experiencia del entrenador.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">¿Cuánto dura el Bootcamp y cuál es la modalidad?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">3 módulos de 2 horas cada uno, online en vivo. Total: 6 horas en 3 domingos. Fechas: 20 de abril, 27 de abril y 4 de mayo. No se graba. La interacción directa es parte fundamental del método.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">¿Las clases se graban?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">No. Las clases son 100% en vivo y no quedan grabadas. MAV interviene en tiempo real sobre las situaciones reales de cada participante. Eso no funciona de la misma forma en diferido. Si sabés que no podés estar en algún módulo, lo más honesto es esperar el próximo ciclo.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">¿$135.000 es mucho dinero para mi situación?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Con el crédito de la Masterclass el Plan Esencial queda en $120.000. En 6 cuotas son $20.000 por mes — menos que una sola consulta individual con un psicólogo deportivo. Y acá te llevás un sistema completo que aplicás con todos tus jugadores, no una sesión de trabajo personal.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span class="faq-q-text">¿Cómo funciona el crédito de la Masterclass?</span>
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-a">
+          <div class="faq-a-inner">Si asistís a la Masterclass del 13 de abril, los $15.000 de la entrada se descuentan del plan que elijas. El crédito es válido por 48 horas después del cierre de la clase. Plan Esencial con crédito: $120.000. Plan Integral con crédito: $285.000.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final" class="navy-section">
+  <div class="container">
+    <div class="cta-final-deco"></div>
+    <div class="cta-final-inner reveal">
+      <div class="cta-urgency">
+        <div class="cta-urgency-dot"></div>
+        Quedan 30 cupos · Bootcamp 20 de Abril
+      </div>
+      <h2 class="cta-final-title">
+        Tu equipo puede<br>estar <em>listo.</em>
+      </h2>
+      <p class="cta-final-sub">
+        El Bootcamp arranca el 20 de abril. Tres domingos, seis horas, herramientas aplicables desde el primer módulo. Antes, la Masterclass del 13 de abril.
+      </p>
+      <div class="btn-group" style="justify-content:center;gap:20px;">
+        <a href="https://mpago.li/2bwgLuf" target="_blank" class="btn btn-orange" style="font-size:18px;padding:20px 48px;">Plan Esencial — $135.000</a>
+        <a href="https://mpago.li/2LLfSLE" target="_blank" class="btn btn-outline-cream" style="font-size:18px;padding:20px 48px;">Plan Integral — $300.000</a>
+      </div>
+      <p style="margin-top:20px;font-size:14px;color:var(--muted-on-navy);">
+        ¿Tenés dudas? → <a href="#" style="color:var(--sage);text-decoration:none;">Escribime por WhatsApp</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAV</div>
+  <p class="footer-tagline">Entrenamiento Mental para Entrenadores de Fútbol</p>
+  <p class="footer-contact"><a href="#">Contacto por WhatsApp</a></p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
